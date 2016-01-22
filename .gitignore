@@ -16,6 +16,8 @@ target/
 
 # eclipse
 .profile
+settings/
+.classpath
 
 # MAC OSX
 .DS_Store
