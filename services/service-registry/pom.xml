@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.jyore.microservices.</groupId>
+	<groupId>com.jyore.microservices</groupId>
 	<artifactId>service-registry</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
@@ -10,6 +10,10 @@
 		<artifactId>spring-cloud-starter-parent</artifactId>
 		<version>1.0.1.RELEASE</version>
 	</parent>
+
+	<properties>
+		<docker.image.prefix>jyore</docker.image.prefix>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -47,6 +51,22 @@
 							<artifactId>eureka-client</artifactId>
 						</dependency>
 					</requiresUnpack>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.2.3</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${docker.image.name}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
 				</configuration>
 			</plugin>
 		</plugins>
