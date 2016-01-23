@@ -11,6 +11,10 @@
 		<version>1.0.1.RELEASE</version>
 	</parent>
 
+	<properties>
+		<docker.image.prefix>jyore</docker.image.prefix>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -61,6 +65,24 @@
 							<artifactId>eureka-client</artifactId>
 						</dependency>
 					</requiresUnpack>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.2.3</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${docker.image.name}</imageName>
+					<!--dockerDirectory>src/main/docker</dockerDirectory-->
+					<baseImage>jyore/java:openjdk-8-jre</baseImage>
+					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+					<resources>
+						<resource>
+							<targetPath>/deployments</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
 				</configuration>
 			</plugin>
 		</plugins>
