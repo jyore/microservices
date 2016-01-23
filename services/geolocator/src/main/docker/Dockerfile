@@ -6,6 +6,6 @@ VOLUME /data
 
 WORKDIR /deployments
 
-EXPOSE 8761
+EXPOSE 8000
 
 ENTRYPOINT ["java","-jar","/deployments/app.jar"]

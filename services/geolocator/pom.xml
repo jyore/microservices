@@ -73,12 +73,10 @@
 				<version>0.2.3</version>
 				<configuration>
 					<imageName>${docker.image.prefix}/${docker.image.name}</imageName>
-					<!--dockerDirectory>src/main/docker</dockerDirectory-->
-					<baseImage>jyore/java:openjdk-8-jre</baseImage>
-					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+					<dockerDirectory>src/main/docker</dockerDirectory>
 					<resources>
 						<resource>
-							<targetPath>/deployments</targetPath>
+							<targetPath>/</targetPath>
 							<directory>${project.build.directory}</directory>
 							<include>${project.build.finalName}.jar</include>
 						</resource>
